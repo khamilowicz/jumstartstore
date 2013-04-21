@@ -120,6 +120,12 @@ context "concerning reviews" do
    @product.rating.should == 3.5
  end
 end
+
+describe ".on_sale" do
+  it "by default is not on sale" do
+    @product.should_not be_on_sale
+  end
+end
 end
 end
 end

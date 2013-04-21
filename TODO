@@ -10,17 +10,10 @@ it "Checkout (until they log in)"
 it "View the administrator screens or use administrator functionality"
 it "Make themselves an administrator"
 
-end
-
-
-describe "User:" do
-
 describe "unauthenticated user" do
 it_behaves_like 'simple user'
 it_behaves_like "simple user who can't"
 it "Log in, which should not clear the cart "
-
-end
 
 describe "Authenticated Non-Administrators" do
 
@@ -38,33 +31,12 @@ it "if shipped or cancelled, display a timestamp when that action took place"
 context "if any product is retired:" do
 it "they can still access the product page"
 it "they cannot add it to a new cart"
-end
-
-end
 
 it "Place a 'Two-Click' order from any active product page."
 it "The first click asks 'Place an order for ‘X’? and if you then click 'OK', the order is completed."
 it "Handle this in JavaScript or plain HTML at your discretion."
-end
-
-context "is NOT allowed to:" do
-
-it "view another user’s private data (such as current shopping cart, etc.)"
-it "view the administrator screens or use administrator functionality"
-it "make themselves an administrator"
-
-end
-
-context " On products I’ve purchased" do
-context "he can" do
-
 
 it "Edit a review I’ve previously submitted until 15 minutes after I first submitted it"
-end
-
-end
-
-end
 
 describe "As an authenticated Administrator" do
 context "he can" do

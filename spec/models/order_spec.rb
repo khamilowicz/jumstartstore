@@ -45,6 +45,22 @@ describe Order do
       @products.each.with_index{|product, index| product.stub(:price).and_return(index)}
       @order.total_price.should == 3
     end
-  end
+
+    it 'has status in "pending", "cancelled", "paid", "shipped", "returned")' do
+  @order.status.should == "pending"
+  @order.cancel
+  @order.status.should == "cancelled"
+  @order.pay
+  @order.status.should == "paid"
+  @order.is_sent
+  @order.status.should == "shipped"
+  @order.is_returned
+  @order.status.should == "returned"
+  expect{@order.status = "cancelled"}.to raise_error
+  @order.status.should_not == "cancelled"
+  expect{@order.status = "something else"}.to raise_error
+  @order.status.should_not == "something else"
+end
+end
 end
 

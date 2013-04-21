@@ -7,8 +7,8 @@ class User
   include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  attr_accessor :email, :first_name, :last_name, :display_name, :logged, :admin
-
+  attr_accessor :email, :first_name, :last_name, :display_name, :logged
+  attr_reader :admin
   validates :email, format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i}
  # validates_uniqueness_of :email
  validates_presence_of :first_name
@@ -16,8 +16,8 @@ class User
  validates :display_name, length: {minimum: 2, maximum: 32}, allow_blank: true
 
  def initialize 
-   logged = false
-   admin = false
+   @logged = false
+   @admin = false
  end
 
  def full_name
@@ -59,4 +59,12 @@ end
 def guest?
   not @logged
 end 
+
+def admin?
+  admin
+end
+
+def promote_to_admin user_promoting
+  @admin = true if user_promoting.admin?
+end
 end

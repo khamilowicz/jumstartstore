@@ -142,5 +142,21 @@ context "concerning status" do
   it "by default is guest" do
     @user.should be_guest
   end
+
+  it "can be changed to admin only by admin" do
+    expect{@user.admin = true}.to raise_error
+    @user.should_not be_admin
+    
+    user = double("User")
+    user.stub(:admin?).and_return(false)
+    
+    @user.promote_to_admin(user)
+    @user.should_not be_admin
+    
+    user.stub(:admin?).and_return(true)
+    
+    @user.promote_to_admin(user)
+    @user.should be_admin
+  end
 end
 end
