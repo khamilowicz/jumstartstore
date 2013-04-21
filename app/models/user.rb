@@ -25,7 +25,7 @@ class User
 end
 
 def add_product product 
-  products << product
+  products << product if product.on_sale?
 end
 
 def products

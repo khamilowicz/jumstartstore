@@ -61,6 +61,16 @@ describe Order do
   expect{@order.status = "something else"}.to raise_error
   @order.status.should_not == "something else"
 end
+it "can be found by status" do
+  order_can = Order.new [], double("user")
+  order_can.cancel
+  order_sent = Order.new [], double("user")
+  order_sent.is_sent
+  Order.find_by_status(:shipped).should include(order_sent)
+  Order.find_by_status(:shipped).should_not include(order_can)
+
+end
+
 end
 end
 

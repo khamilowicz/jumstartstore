@@ -12,6 +12,19 @@ class Product
   validates_format_of :price, with: /\A[^-]\d+\.\d{2}\Z/
   validates_format_of :photo, with: /\A(http|https):\/\/(www\.)?\w+\.\w+\/\w+\Z/, allow_blank: true
 
+
+class << self
+  @@all_products = []
+  def find_on_sale
+    @@all_products.find_all{|product| product.on_sale?}
+  end
+end
+
+  def initialize 
+    @on_sale = false
+    @@all_products << self
+  end
+
   def add_to_category category 
    Category.get(category).add_product self
  end
@@ -33,4 +46,17 @@ end
 def list_categories
   Category.names_for_product(self)
 end
+
+def on_sale?
+  @on_sale
+  end
+
+  def start_selling
+    @on_sale = true
+  end
+
+  def retire
+    @on_sale = false
+    
+  end
 end

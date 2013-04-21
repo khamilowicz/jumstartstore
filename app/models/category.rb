@@ -33,5 +33,13 @@ def add_product product
   products << product
 end
 
+def all_on_sale?
+  products.all?{|product| product.on_sale?}
+end
+
+def put_on_sale
+  products.each{|product| product.start_selling}
+end
+
 
 end

@@ -125,6 +125,23 @@ describe ".on_sale" do
   it "by default is not on sale" do
     @product.should_not be_on_sale
   end
+
+  it "can be set to sold" do
+    @product.start_selling
+    @product.should be_on_sale
+  end
+
+  it "can be retired from selling" do
+    @product.start_selling
+    @product.retire
+    @product.should_not be_on_sale
+  end
+
+  it "can be found be sale status" do
+    Product.find_on_sale.should_not include(@product)
+    @product.start_selling
+    Product.find_on_sale.should include(@product)
+  end
 end
 end
 end

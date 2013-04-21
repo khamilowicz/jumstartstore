@@ -11,11 +11,19 @@ class Order
   validates_presence_of :products
   validates_presence_of :user
 
+  class << self
+    @@all_orders = []
+    def find_by_status stat
+      @@all_orders.find_all{|order| order.status == stat.to_s}
+    end
+  end
+
   def initialize products, user
     @products = products
     @user = user
     @date_of_purchase = Time.now
     @status = 'pending'
+    @@all_orders << self
   end
 
   def address

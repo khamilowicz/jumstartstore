@@ -11,11 +11,11 @@ describe User do
     @user.email = "John.Smith@gmail.co.uk"
     @user.first_name = "John"
     @user.last_name = "Smith"
+
   end
   context "to be valid" do
 
     context "must have email that is" do
-
 
       it "in email format" do
         @user.email = 'john.smith@gmail.co.uk'
@@ -59,13 +59,19 @@ describe User do
   end
 
   context "concerning products" do
-
+    before(:each) do
+      @product = double("Product")
+      @product.stub(:on_sale?).and_return(true)
+      @product_1 = double("Product")
+      @product_1.stub(:on_sale?).and_return(true)
+      @product_2 = double("Product")
+      @product_2.stub(:on_sale?).and_return(true)
+      @product_3 = double("Product")
+      @product_3.stub(:on_sale?).and_return(true)
+      @user.add_product @product 
+    end
+    
     describe ".add_product" do
-      before(:each) do
-        @product = double("Product")
-        @user.add_product @product 
-      end
-
       it "adds product to user" do
         @user.products.should include(@product)
       end
@@ -76,15 +82,19 @@ describe User do
         @user.product_quantity(@product).should == 2
       end
 
+      it "cannot add product that is retired" do
+        product = double("Product")
+        product.stub(:on_sale?).and_return(false)
+        @user.add_product product
+        @user.products.should_not include(product)
+      end
+
       it "lets save user with product" do
       end
     end
 
     context "which he has" do
       before(:each) do
-       @product_1 = double("Product")
-       @product_2 = double("Product")
-       @product_3 = double("Product")
        @user.add_product @product_1
        @user.add_product @product_2
      end
@@ -120,9 +130,6 @@ describe User do
 
   context "concerning orders" do
     before(:each) do
-     @product_1 = double("Product")
-     @product_2 = double("Product")
-     @product_3 = double("Product")
      @user.add_product @product_1
      @user.add_product @product_2
      @user.add_product @product_3
@@ -135,6 +142,16 @@ describe User do
     @user.cart.products.should be_empty
     @user.orders.should have(1).item
     @user.orders.first.should be_kind_of(Order)
+  end
+
+  it "can browse previous purchases" do
+    @user.make_purchase
+    @user.add_product @product_1
+    @user.make_purchase
+    @user.orders.should have(2).items
+    @user.orders.last.products.should_not include(@product_2)
+    @user.orders.first.products.should include(@product_2)
+    
   end
 end
 end
