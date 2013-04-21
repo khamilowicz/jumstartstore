@@ -46,6 +46,7 @@ describe User do
     
 
     it "A user may optionally provide a display name that must be no less than 2 characters long and no more than 32" do
+      @user.display_name.should == 'John Smith'
       @user.display_name = "Jonesey"
       @user.should be_valid
       @user.display_name = "J"

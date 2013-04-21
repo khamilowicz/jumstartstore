@@ -45,5 +45,9 @@ class User
   def orders
     @orders ||= []
   end
+
+  def display_name
+    @display_name || self.full_name
+  end
   
   end

@@ -34,8 +34,6 @@ describe Order do
       order.address = "Other address"
       order.address.should == 'Other address'
     end
-
-
   end
 end
 
