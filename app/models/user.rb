@@ -26,8 +26,24 @@ class User
     cart.products
   end
 
+  def remove_product product
+    products.delete(product)
+  end
+
   def cart
     @cart ||= Cart.new
+  end
+
+  def product_quantity product
+    products.count{|x| x == product}
+  end
+
+  def make_purchase
+    cart.purchase self
+  end
+
+  def orders
+    @orders ||= []
   end
   
   end

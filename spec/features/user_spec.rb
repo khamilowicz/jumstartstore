@@ -62,17 +62,19 @@ describe "User:" do
 
 			it "log out"
 			it "view their past orders with links to display each order"
-			it "on that order display page there are:"
-			it "products with quantity ordered and line-item subtotals"
-			it "links to each product page"
-			it "the current status"
-			it "order total price"
-			it "date/time order was submitted"
-			it "if shipped or cancelled, display a timestamp when that action took place"
+			context "on that order display page there are:" do
+				it "products with quantity ordered and line-item subtotals"
+				it "links to each product page"
+				it "the current status"
+				it "order total price"
+				it "date/time order was submitted"
+				it "if shipped or cancelled, display a timestamp when that action took place"
 
-			context "if any product is retired:" do
-				it "they can still access the product page"
-				it "they cannot add it to a new cart"
+				context "if any product is retired:" do
+					it "they can still access the product page"
+					it "they cannot add it to a new cart"
+				end
+
 			end
 
 			it "Place a 'Two-Click' order from any active product page."
