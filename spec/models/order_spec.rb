@@ -61,6 +61,14 @@ describe Order do
   expect{@order.status = "something else"}.to raise_error
   @order.status.should_not == "something else"
 end
+
+it "has date of status change" do
+  @time_now = Time.now
+  Time.stub!(:now).and_return(@time_now)
+  @order.cancel
+  @order.time_of_status_change.should == @time_now
+  
+end
 it "can be found by status" do
   order_can = Order.new [], double("user")
   order_can.cancel

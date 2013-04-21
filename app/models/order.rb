@@ -6,7 +6,7 @@ class Order
 
  attr_accessor :products, :user
  attr_writer :address
- attr_reader :date_of_purchase, :status
+ attr_reader :date_of_purchase, :status, :time_of_status_change
 
   validates_presence_of :products
   validates_presence_of :user
@@ -36,17 +36,25 @@ class Order
 
   def cancel
     @status = "cancelled"
+    update_status_time_change
   end
 
   def pay
     @status = "paid" if PayingManager.pay(@order, @user).is_paid?
+    update_status_time_change
   end
 
   def is_sent
     @status = "shipped"
+    update_status_time_change
   end
 
   def is_returned
     @status = "returned"
+    update_status_time_change
+  end
+
+  def update_status_time_change
+    @time_of_status_change = Time.now
   end
 end

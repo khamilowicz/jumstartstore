@@ -1,27 +1,13 @@
-
-it "view their past orders with links to display each order"
-context "on that order display page there are:" do
-it "links to each product page"
-it "the current status"
-it "if shipped or cancelled, display a timestamp when that action took place"
-
 it "Edit a review I’ve previously submitted until 15 minutes after I first submitted it"
-
 it "Create a 'sale' and connect it with individual products or entire categories"
 it "Sales are created as a percentage off the normal price"
 it "View a list of all active sales"
 it "End a sale"
-
-context "On the order 'dashboard' they can:" do
-context "View details of an individual order, including:" do
-
 it "If purchased on sale, original price, sale percentage and adjusted price"
 it "Subtotal for the order"
 it "Discount for the order"
 it "Total for the order reflecting any discounts from applicable sales"
-
 context "search orders using a builder-style interface (like Google’s 'Advanced Search;) allowing them to specify any of these:" do
-
 it 'Status (drop-down)'
 it 'Order total (drop-down for >, <, = and a text field for dollar-with-cents)'
 it 'Order date (drop-down for >, <, = and a text field for a date)'
