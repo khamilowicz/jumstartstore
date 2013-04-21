@@ -1,4 +1,6 @@
-require 'spec_helper'
+# require 'spec_helper'
+require_relative "../../app/models/cart"
+require 'rspec/autorun'
 
 describe Cart do
 	before(:each) do

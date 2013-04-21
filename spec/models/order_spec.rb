@@ -12,6 +12,9 @@ describe Order do
       @product_2 = double("Product")
       @product_3 = double("Product")
       @products = [@product_1, @product_2, @product_3]
+      @time_now = Time.now
+      Time.stub!(:now).and_return(@time_now)
+      @order = Order.new(@products, @user)
     end
 
     it "must belong to an user" do
@@ -29,10 +32,18 @@ describe Order do
     end
 
     it "has address" do
-      order = Order.new(@products, @user)
-      order.address.should == 'Address'
-      order.address = "Other address"
-      order.address.should == 'Other address'
+      @order.address.should == 'Address'
+      @order.address = "Other address"
+      @order.address.should == 'Other address'
+    end
+
+    it "has date of purchase" do
+      @order.date_of_purchase.should == @time_now
+    end
+
+    it "has total price" do
+      @products.each.with_index{|product, index| product.stub(:price).and_return(index)}
+      @order.total_price.should == 3
     end
   end
 end

@@ -6,13 +6,13 @@ require_relative '../../app/models/order.rb'
 
 
 describe User do
-	context "to be valid" do
-    before(:each) do
-      @user = User.new
-      @user.email = "John.Smith@gmail.co.uk"
-      @user.first_name = "John"
-      @user.last_name = "Smith"
-    end
+  before(:each) do
+    @user = User.new
+    @user.email = "John.Smith@gmail.co.uk"
+    @user.first_name = "John"
+    @user.last_name = "Smith"
+  end
+  context "to be valid" do
 
     context "must have email that is" do
 
@@ -26,9 +26,11 @@ describe User do
       end
 
       it "unique" do
-        pending 'release after adding database'
+        pending "delete after implementing database"
         user_2 = User.new 
-        user_2.email = 'john.smith@gmail.co.uk'
+        user_2.email = 'John.Smith@gmail.co.uk'
+        user_2.first_name = 'John'
+        user_2.last_name = 'Smith'
         user_2.should_not be_valid
       end
     end
@@ -57,10 +59,6 @@ describe User do
   end
 
   context "concerning products" do
-    before(:each) do
-      @user = User.new
-    end
-
 
     describe ".add_product" do
       before(:each) do
@@ -139,5 +137,10 @@ describe User do
     @user.orders.first.should be_kind_of(Order)
   end
 end
+end
+context "concerning status" do
+  it "by default is guest" do
+    @user.should be_guest
+  end
 end
 end
