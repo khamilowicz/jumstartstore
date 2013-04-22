@@ -29,6 +29,14 @@ def initialize name
   @products = []
 end
 
+def discount disc
+  @products.each{|product| product.on_discount disc}
+end
+
+def total_price
+  @products.inject(0){|sum, product| sum+=product.price}
+end
+
 def add_product product
   products << product
 end

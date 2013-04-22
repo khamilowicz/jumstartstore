@@ -7,7 +7,7 @@ describe Product do
 	context "to be valid" do
     before(:each) do
       @product = Product.new
-      @product.price = '19.43'
+      @product.price = 19.43
       @product.description = 'Product description'
       @product.title = 'Product title'
     end
@@ -39,17 +39,17 @@ describe Product do
 
 
    it "The price must be a valid decimal numeric value and greater than zero" do
-     @product.price = ''
+     @product.price = nil
      @product.should_not be_valid
      @product.price = 'shabada'
      @product.should_not be_valid
-     @product.price = '19'
+     @product.price = 19
      @product.should_not be_valid
-     @product.price = '19.432'
+     @product.price = 19.432
      @product.should_not be_valid
      @product.price = -10.01
      @product.should_not be_valid
-     @product.price = '19.43'
+     @product.price = 19.43
      @product.should be_valid
    end
 
@@ -141,6 +141,16 @@ describe ".on_sale" do
     Product.find_on_sale.should_not include(@product)
     @product.start_selling
     Product.find_on_sale.should include(@product)
+  end
+end
+
+describe "discounts" do
+  it "can be discounted" do
+   @product.price.should == @product.real_price 
+    @product.on_discount 50
+   @product.price.should == 0.5*@product.real_price 
+
+    
   end
 end
 end

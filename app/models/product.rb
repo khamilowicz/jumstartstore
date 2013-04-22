@@ -5,11 +5,12 @@ class Product
 
   include ActiveModel::Validations
 
-  attr_accessor :title, :description, :price, :photo, :reviews
+  attr_accessor :title, :description, :photo, :reviews, :real_price
+  attr_reader :discount
 
   validates_presence_of :title
   validates_presence_of :description
-  validates_format_of :price, with: /\A[^-]\d+\.\d{2}\Z/
+  validates_format_of :real_price, with: /\A[^-]\d+\.\d{2}\Z/
   validates_format_of :photo, with: /\A(http|https):\/\/(www\.)?\w+\.\w+\/\w+\Z/, allow_blank: true
 
 
@@ -23,6 +24,8 @@ end
   def initialize 
     @on_sale = false
     @@all_products << self
+     on_discount 100
+    self.price = 0
   end
 
   def add_to_category category 
@@ -35,7 +38,7 @@ end
 
 def rating
   return 0 if reviews.empty?
-  average = reviews.map(&:note).inject(:+).to_f/reviews.size
+  average = reviews.inject(0){|sum, review| sum+=review.note}.to_f/reviews.size
   (2.0*average).round/2.0 # round to 0.5
 end
 
@@ -57,6 +60,18 @@ def on_sale?
 
   def retire
     @on_sale = false
+  end
+
+  def price
+    real_price*discount
+  end
+
+  def price=new_price
+    @real_price = new_price
+  end
+
+  def on_discount disc 
+    @discount = disc/100.0
     
   end
 end

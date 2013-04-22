@@ -46,6 +46,19 @@ describe Category do
     Category.find_products_for("Category_2").should include(product_3)
   end
 
+  it "has total price" do
+
+    category = Category.get 'total price'
+    product_1 = double("Product")
+    product_1.stub(:price).and_return(1)
+    product_2 = double("Product")
+    product_2.stub(:price).and_return(2)
+    category.add_product product_1
+    category.add_product product_2
+    category.total_price.should == 3
+    
+  end
+
   it "can be put on sale" do
     product_1 = Product.new
     product_2 = Product.new
@@ -58,6 +71,19 @@ describe Category do
     category.all_on_sale?.should be_false
     category.put_on_sale
     category.all_on_sale?.should be_true
+  end
+
+  it "can be discounted" do
+    category = Category.get "discount"
+    product_1 = Product.new 
+    product_1.price = 1
+    product_2 = Product.new 
+    product_2.price = 2
+    category.add_product product_1
+    category.add_product product_2
+    category.total_price.should == 3
+    category.discount 50
+    category.total_price.should == 1.5
   end
 
 end

@@ -1,6 +1,4 @@
 it "Edit a review I’ve previously submitted until 15 minutes after I first submitted it"
-it "Create a 'sale' and connect it with individual products or entire categories"
-it "Sales are created as a percentage off the normal price"
 it "View a list of all active sales"
 it "End a sale"
 it "If purchased on sale, original price, sale percentage and adjusted price"
