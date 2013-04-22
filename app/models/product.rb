@@ -1,12 +1,13 @@
 require "active_model"
 require_relative "category"
+require_relative 'sale'
 
 class Product 
 
   include ActiveModel::Validations
 
   attr_accessor :title, :description, :photo, :reviews, :real_price
-  attr_reader :discount
+  
 
   validates_presence_of :title
   validates_presence_of :description
@@ -63,7 +64,7 @@ def on_sale?
   end
 
   def price
-    real_price*discount
+    Sale.discount_price(self)
   end
 
   def price=new_price
@@ -71,7 +72,14 @@ def on_sale?
   end
 
   def on_discount disc 
-    @discount = disc/100.0
-    
+    Sale.set_discount(self, disc)
+  end
+
+  def off_discount
+    Sale.set_discount(self, 100)
+  end
+
+  def discount
+    Sale.get_discount(self)
   end
 end

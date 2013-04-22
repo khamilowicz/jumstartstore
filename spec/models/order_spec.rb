@@ -1,6 +1,7 @@
 # require 'spec_helper'
 require "rspec/autorun"
 require_relative '../../app/models/order'
+require_relative '../../app/models/product'
 require "rspec/mocks"
 
 describe Order do
@@ -8,9 +9,12 @@ describe Order do
     before(:each) do
       @user = double("User")
       @user.stub(:address).and_return("Address")
-      @product_1 = double("Product")
-      @product_2 = double("Product")
-      @product_3 = double("Product")
+      @product_1 = Product.new 
+      @product_1.price = 10.00
+      @product_2 = Product.new 
+      @product_2.price = 10.00
+      @product_3 = Product.new 
+      @product_3.price = 10.00
       @products = [@product_1, @product_2, @product_3]
       @time_now = Time.now
       Time.stub!(:now).and_return(@time_now)
@@ -76,6 +80,19 @@ it "can be found by status" do
   order_sent.is_sent
   Order.find_by_status(:shipped).should include(order_sent)
   Order.find_by_status(:shipped).should_not include(order_can)
+end
+
+it "has products" do
+  @order.products.should include(@product_1, @product_2)
+end
+
+it "can calculate total discount" do
+ tp = @order.total_price 
+ Sale.set_discount(@product_1, 50)
+ Sale.set_discount(@product_2, 50)
+ Sale.set_discount(@product_3, 50)
+ @order.total_price.should == 0.5*tp
+ @order.total_discount.should == 50
 
 end
 

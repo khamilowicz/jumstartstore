@@ -1,7 +1,4 @@
 it "Edit a review I’ve previously submitted until 15 minutes after I first submitted it"
-it "View a list of all active sales"
-it "End a sale"
-it "If purchased on sale, original price, sale percentage and adjusted price"
 it "Subtotal for the order"
 it "Discount for the order"
 it "Total for the order reflecting any discounts from applicable sales"

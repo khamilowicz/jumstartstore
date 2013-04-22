@@ -57,4 +57,8 @@ class Order
   def update_status_time_change
     @time_of_status_change = Time.now
   end
+
+  def total_discount
+   100*@products.inject(0){|sum, product| sum+=product.discount}/@products.size
+  end
 end

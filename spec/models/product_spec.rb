@@ -148,9 +148,15 @@ describe "discounts" do
   it "can be discounted" do
    @product.price.should == @product.real_price 
     @product.on_discount 50
-   @product.price.should == 0.5*@product.real_price 
+   @product.price.should == 0.5*@product.real_price
+  end
 
-    
+  it "can be put off discount" do
+   @product.price.should == @product.real_price 
+    @product.on_discount 50
+   @product.price.should == 0.5*@product.real_price
+   @product.off_discount
+   @product.price.should == @product.real_price
   end
 end
 end
