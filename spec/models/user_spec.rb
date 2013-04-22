@@ -13,6 +13,25 @@ describe User do
     @user.last_name = "Smith"
 
   end
+  context "new" do
+
+    it "is created from hash" do
+      attributes = {first_name: "John"}
+      user = User.new(attributes)
+      user.first_name.should == 'John'
+    end
+
+    it "prevents from creating malicious attributes" do
+      attributes = {first_name: "John", custom_attribute: "nil'; def danger; 'DANGER'; end; ' nil;"}
+      user = User.new(attributes)
+      user.first_name.should == "John"
+      expect{user.danger}.to raise_error
+      attributes = {first_name: "John", last_name:"nil'; def danger; 'DANGER'; end; ' nil;"}
+      user = User.new(attributes)
+      user.first_name.should == "John"
+      expect{user.danger}.to raise_error
+    end
+  end
   context "to be valid" do
 
     context "must have email that is" do

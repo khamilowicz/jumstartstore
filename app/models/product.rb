@@ -22,7 +22,11 @@ class << self
   end
 end
 
-  def initialize 
+  def initialize attributes={}
+    @title = attributes[:title]
+ @description = attributes[:description]
+ @photo = attributes[:photo]
+ @real_price = attributes[:real_price]
     @on_sale = false
     @@all_products << self
      on_discount 100

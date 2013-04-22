@@ -15,12 +15,19 @@ class User
  validates_presence_of :last_name
  validates :display_name, length: {minimum: 2, maximum: 32}, allow_blank: true
 
- def initialize 
-   @logged = false
-   @admin = false
- end
+ def initialize attributes={}
 
- def full_name
+  @email = attributes[:email]
+  @first_name = attributes[:first_name]
+  @last_name = attributes[:last_name]
+  @display_name = attributes[:display_name]
+
+  # attributes.each{|k,v| instance_eval "@#{k}='#{v}'"}
+  @logged = false
+  @admin = false
+end
+
+def full_name
   "#{first_name} #{last_name}"
 end
 

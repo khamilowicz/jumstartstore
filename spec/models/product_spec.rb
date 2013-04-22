@@ -63,6 +63,24 @@ describe Product do
    end
  end
 
+ it "is created from hash" do
+      attributes = {title: "Product 1"}
+      product = Product.new(attributes)
+      product.title.should == 'Product 1'
+    end
+
+    it "prevents from creating malicious attributes" do
+      attributes = {title: "Product 1", custom_attribute: "nil'; def danger; 'DANGER'; end; ' nil;"}
+      product = Product.new(attributes)
+      product.title.should == "Product 1"
+      expect{product.danger}.to raise_error
+      attributes = {title: "Product 1", description:"nil'; def danger; 'DANGER'; end; ' nil;"}
+      product = Product.new(attributes)
+      product.title.should == "Product 1"
+      expect{product.danger}.to raise_error
+    end
+  
+
  context "concerning categories" do
   describe ".add_to_category" do
     it "can take category name" do
@@ -126,7 +144,7 @@ describe ".on_sale" do
     @product.should_not be_on_sale
   end
 
-  it "can be set to sold" do
+  it "can be set to sale" do
     @product.start_selling
     @product.should be_on_sale
   end

@@ -1,7 +1,4 @@
 it "Edit a review I’ve previously submitted until 15 minutes after I first submitted it"
-it "Subtotal for the order"
-it "Discount for the order"
-it "Total for the order reflecting any discounts from applicable sales"
 context "search orders using a builder-style interface (like Google’s 'Advanced Search;) allowing them to specify any of these:" do
 it 'Status (drop-down)'
 it 'Order total (drop-down for >, <, = and a text field for dollar-with-cents)'

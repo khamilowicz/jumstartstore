@@ -1,5 +1,7 @@
 Store::Application.routes.draw do
   # The priority is based upon order of creation:
+
+  root to: 'home#index'
   # first created -> highest priority.
 
   # Sample of regular route:
